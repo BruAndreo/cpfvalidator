@@ -15,3 +15,11 @@ func TestNewCPF(t *testing.T) {
 	assert.Equal(t, nil, error)
 	assert.Equal(t, cpf.Value, expectedCPF)
 }
+
+func TestCPFCannotBeNull(t *testing.T) {
+	expectError := "invalid CPF"
+
+	_, err := cpf.NewCPF("")
+
+	assert.EqualError(t, err, expectError)
+}
