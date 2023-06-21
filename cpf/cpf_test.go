@@ -40,3 +40,11 @@ func TestCPFHasInvalidLength(t *testing.T) {
 
 	assert.EqualError(t, err, expectedError)
 }
+
+func TestCPFCannotWithSameDigit(t *testing.T) {
+	expectedError := "invalid CPF"
+
+	_, err := cpf.NewCPF("111.111.111-11")
+
+	assert.EqualError(t, err, expectedError)
+}

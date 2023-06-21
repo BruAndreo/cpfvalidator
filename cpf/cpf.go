@@ -3,6 +3,7 @@ package cpf
 import (
 	"errors"
 	"regexp"
+	"strings"
 )
 
 type CPF struct {
@@ -24,6 +25,10 @@ func NewCPF(value string) (cpf *CPF, err error) {
 		return cpf, errors.New("invalid CPF size")
 	}
 
+	if allSameDigit(valueClean) {
+		return cpf, errors.New("invalid CPF")
+	}
+
 	return &CPF{Value: value}, nil
 }
 
@@ -39,4 +44,14 @@ func clear(value string) string {
 	sampleRegex := regexp.MustCompile(`\D+`)
 	result := sampleRegex.ReplaceAllString(value, "")
 	return result
+}
+
+func allSameDigit(value string) bool {
+	digits := strings.Split(value, "")
+	for _, digit := range digits {
+		if digit != digits[0] {
+			return false
+		}
+	}
+	return true
 }
